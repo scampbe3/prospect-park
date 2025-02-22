@@ -1,26 +1,55 @@
 import os
+from PIL import Image, ImageOps
 
-# Path to your images folder
-image_folder = 'images'
+# Folder where your original JPGs are
+INPUT_FOLDER = "images"
+# Folder where you want your new .webp thumbnails
+OUTPUT_FOLDER = "thumbs_webp"
 
-# Valid image extensions (case-insensitive)
-valid_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'}
+# Ensure output folder exists
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
-# Get sorted list of files in the images folder
-files = sorted(os.listdir(image_folder))
+for filename in os.listdir(INPUT_FOLDER):
+    # Only process .jpg (or .jpeg) files
+    if not filename.lower().endswith((".jpg", ".jpeg")):
+        continue
 
-# Loop over each file and check if it has a valid image extension
-for filename in files:
-    # Extract the file extension in lowercase
-    _, ext = os.path.splitext(filename)
-    ext = ext.lower()
+    filepath = os.path.join(INPUT_FOLDER, filename)
 
-    # If it's one of our valid extensions, print out the HTML snippet
-    if ext in valid_extensions:
-        # We'll strip any special characters from the filename for use in alt text
-        alt_text = filename.rsplit('.', 1)[0].replace('-', ' ').replace('_', ' ')
+    # Open image and auto-orient based on EXIF
+    with Image.open(filepath) as img:
+        # Fix any EXIF-based rotation so width/height reflect actual orientation
+        img = ImageOps.exif_transpose(img)
+        w, h = img.size
 
-        # Print the <figure> block
-        print(f'<figure class="gallery-item">')
-        print(f'  <img src="images/{filename}" alt="{alt_text}" loading="lazy" />')
-        print(f'</figure>')
+        # Determine if it's horizontal or vertical
+        if (w, h) == (4000, 2252):
+            # Horizontal image -> center crop to 4000x2000
+            top = (2252 - 2000) // 2  # 126
+            bottom = top + 2000       # 2126
+            left = 0
+            right = 4000
+            img = img.crop((left, top, right, bottom))
+
+        elif (w, h) == (2252, 4000):
+            # Vertical image -> center crop to 2000x4000
+            left = (2252 - 2000) // 2  # 126
+            right = left + 2000        # 2126
+            top = 0
+            bottom = 4000
+            img = img.crop((left, top, right, bottom))
+
+        else:
+            # If it's not exactly 4000x2252 or 2252x4000, we skip or handle differently
+            print(f"Skipping {filename} (unexpected size {w}x{h})")
+            continue
+
+        # Convert filename to .webp
+        base, ext = os.path.splitext(filename)
+        out_name = base + ".webp"
+        out_path = os.path.join(OUTPUT_FOLDER, out_name)
+
+        # Save as WebP at quality=80 (adjust as desired)
+        img.save(out_path, "WEBP", quality=80)
+
+        print(f"Processed {filename} -> {out_name}, size = {img.size}")
