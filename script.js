@@ -2,14 +2,12 @@
  * 1. INITIALIZE FIREBASE (replace with your config)
  *****************************************************/
 const firebaseConfig = {
-    apiKey: "AIzaSyC7YcVDZyQTn6MVimD9DNzs918fEyRhicI",
-    authDomain: "prospect-gallery.firebaseapp.com",
-    databaseURL: "https://prospect-gallery-default-rtdb.firebaseio.com",
-    projectId: "prospect-gallery",
-    storageBucket: "prospect-gallery.firebasestorage.app",
-    messagingSenderId: "379482558702",
-    appId: "1:379482558702:web:ba805e572f0b89e16323ff",
-    measurementId: "G-LXM7S7LTYC"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
   };
 
   // Initialize Firebase
@@ -35,16 +33,20 @@ const firebaseConfig = {
   /*****************************************************
    * 3. LIGHTBOX HANDLING
    *****************************************************/
-  // Lazy loading is handled by the "loading='lazy'" attribute in index.html
-
-  // Show overlay when an image is clicked
+  // Grab all the gallery images
   const galleryImages = document.querySelectorAll('.gallery-item img');
-  galleryImages.forEach((img) => {
-    img.addEventListener('click', async () => {
+
+  // Show overlay with full-size image on click
+  galleryImages.forEach((thumb) => {
+    thumb.addEventListener('click', async () => {
       overlay.style.display = 'flex';
-      overlayImage.src = img.src;
-      overlayImage.alt = img.alt;
-      currentImageSrc = img.src;
+
+      // Load the full-res image from data-full instead of the thumbnail
+      const fullResUrl = thumb.getAttribute('data-full');
+      overlayImage.src = fullResUrl;
+      overlayImage.alt = thumb.alt;
+
+      currentImageSrc = fullResUrl; // We'll use this to reference Firestore doc
 
       // Load like & comment data from Firestore
       await loadImageData(currentImageSrc);
@@ -74,10 +76,9 @@ const firebaseConfig = {
    * 4. LOAD & RENDER DATA FROM FIRESTORE
    *****************************************************/
 
-  // Loads the like count and comments for a given image (by its src URL)
+  // Load likes and comments for the given image (by its src path)
   async function loadImageData(imageSrc) {
-    // Convert imageSrc to a safe Firestore doc ID
-    // (We can just use the entire string if it’s not too long.)
+    // Convert imageSrc to a doc ID (encode special chars)
     const docId = encodeURIComponent(imageSrc);
 
     // 1. Load the doc for this image from Firestore
@@ -86,16 +87,15 @@ const firebaseConfig = {
 
     let likes = 0;
     if (docSnap.exists) {
-      // If doc exists, read likes
       const data = docSnap.data();
       likes = data.likes || 0;
     } else {
-      // Initialize doc with likes = 0 if it doesn’t exist
+      // Initialize doc if it doesn’t exist
       await docRef.set({ likes: 0 });
     }
     likeCountSpan.textContent = likes;
 
-    // 2. Load the comments (we’ll keep them in a subcollection “comments”)
+    // 2. Load the comments from subcollection "comments"
     const commentsRef = docRef.collection('comments').orderBy('timestamp', 'asc');
     const commentsSnap = await commentsRef.get();
 
@@ -122,7 +122,7 @@ const firebaseConfig = {
     const docId = encodeURIComponent(currentImageSrc);
     const docRef = db.collection('images').doc(docId);
 
-    // Use a transaction or just do a get/update
+    // Use a transaction to safely increment the like count
     await db.runTransaction(async (transaction) => {
       const docSnap = await transaction.get(docRef);
       if (!docSnap.exists) {
@@ -154,7 +154,7 @@ const firebaseConfig = {
       return;
     }
 
-    // Clear input right away
+    // Clear the input
     commentInput.value = '';
 
     const docId = encodeURIComponent(currentImageSrc);
@@ -173,7 +173,7 @@ const firebaseConfig = {
   });
 
   /*****************************************************
-   * 7. HELPER: RENDER COMMENTS
+   * 7. RENDER COMMENTS
    *****************************************************/
   function renderComments(commentsArray) {
     commentList.innerHTML = '';

@@ -1,160 +1,166 @@
 /* Simple Reset */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-/* Body and Container Styling */
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  color: #333;
-}
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #333;
+  }
 
-/* Header */
-.header {
-  text-align: center;
-  padding: 1rem;
-  background: #333;
-  color: #fff;
-}
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 1rem;
+    background: #333;
+    color: #fff;
+  }
 
-/* Gallery Layout (single feed) */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 10px;
-  padding: 10px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+  /* Responsive grid for images */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 10px;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-/* Individual Gallery Items */
-.gallery-item {
-  position: relative;
-  overflow: hidden;
-}
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    /* Option 1: fixed aspect ratio:
+       aspect-ratio: 16/9;
+       or
+       Option 2: a fixed height:
+       height: 200px;
+    */
+    /* Example using aspect-ratio for uniform shape: */
+    aspect-ratio: 16/9;
+  }
 
-.gallery-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ensures both vertical & horizontal images fill the box */
+    display: block;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
 
-.gallery-item img:hover {
-  transform: scale(1.05);
-}
+  .gallery-item img:hover {
+    transform: scale(1.05);
+  }
 
-/* Lightbox Overlay */
-.overlay {
-  position: fixed;
-  display: none; /* hidden by default */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.9);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
+  /* Lightbox overlay styling */
+  .overlay {
+    position: fixed;
+    display: none; /* hidden by default */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
 
-.overlay-content {
-  max-width: 70%;
-  max-height: 70%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-  margin-bottom: 1rem;
-}
+  .overlay-content {
+    max-width: 70%;
+    max-height: 70%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+    margin-bottom: 1rem;
+  }
 
-/* Close Button */
-.close {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  color: #fff;
-  font-size: 3rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s;
-}
+  /* Close button */
+  .close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: #fff;
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
 
-.close:hover {
-  color: #f1c40f;
-}
+  .close:hover {
+    color: #f1c40f;
+  }
 
-/* Right Panel for Like/Comment Info (position it or style as needed) */
-.lightbox-info {
-  color: #fff;
-  max-width: 300px;
-  width: 90%;
-  margin: 0 auto;
-  text-align: left;
-}
+  /* Info section (likes/comments) */
+  .lightbox-info {
+    color: #fff;
+    max-width: 300px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: left;
+  }
 
-.like-section {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 1rem;
-}
+  .like-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
 
-#like-btn {
-  background: #f1c40f;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-weight: bold;
-  border-radius: 4px;
-  transition: background 0.3s;
-}
+  #like-btn {
+    background: #f1c40f;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
 
-#like-btn:hover {
-  background: #d4ac0d;
-}
+  #like-btn:hover {
+    background: #d4ac0d;
+  }
 
-/* Comments Section */
-.comments-section {
-  margin-top: 1rem;
-}
+  .comments-section {
+    margin-top: 1rem;
+  }
 
-#comment-list {
-  list-style: none;
-  max-height: 150px;
-  overflow-y: auto;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  background: #fff;
-  color: #333;
-}
+  #comment-list {
+    list-style: none;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+  }
 
-#comment-list li {
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 0.5rem;
-}
+  #comment-list li {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+  }
 
-#comment-input {
-  width: 100%;
-  resize: none;
-  height: 60px;
-  margin-bottom: 0.5rem;
-}
+  #comment-input {
+    width: 100%;
+    resize: none;
+    height: 60px;
+    margin-bottom: 0.5rem;
+  }
 
-#comment-submit-btn {
-  background: #3498db;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-weight: bold;
-  border-radius: 4px;
-  transition: background 0.3s;
-}
+  #comment-submit-btn {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
 
-#comment-submit-btn:hover {
-  background: #2d80b8;
-}
+  #comment-submit-btn:hover {
+    background: #2d80b8;
+  }
