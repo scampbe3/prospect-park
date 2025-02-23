@@ -19,37 +19,53 @@
     color: #fff;
   }
 
-  /* Masonry Layout via CSS Columns */
+  /***************************************************************
+    CSS Grid with "grid-auto-rows" for a "2× vs. 1×" effect
+  ***************************************************************/
   .gallery {
-    /* Choose the number of columns (e.g., 3) and gap between columns */
-    column-count: 3;
-    column-gap: 1rem;
-    /* You can adjust to 2 or 4 columns as you like: e.g., column-count: 2; */
+    display: grid;
+    /* Each column is at least 250px wide, then auto-fill more columns if space. */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+    /* Each row is 200px tall by default (you can tweak). */
+    grid-auto-rows: 200px;
+    gap: 10px;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  /* Each gallery item must avoid breaking across columns */
+  /* The figure remains a grid item. We'll define "span" in .horizontal and .vertical */
   .gallery-item {
-    display: inline-block; /* so it respects column flow */
-    width: 100%;           /* so the figure is as wide as the column */
-    margin: 0 0 1rem;      /* bottom margin to create vertical spacing */
-    break-inside: avoid;   /* avoids splitting a figure across columns */
+    position: relative;
   }
 
-  /* Images keep their orientation, no forced cropping */
+  /* Horizontal images (2:1) => occupy 1 row in height. */
+  .gallery-item.horizontal {
+    grid-row: span 1; /* 1 row => 200px tall, plus the gap. */
+  }
+
+  /* Vertical images (1:2) => occupy 2 rows => 400px tall. */
+  .gallery-item.vertical {
+    grid-row: span 2;
+  }
+
+  /* The images fill each figure, cropped to fit. */
   .gallery-item img {
-    display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover; /* ensures it fills the figure bounding box */
     cursor: pointer;
     transition: transform 0.3s ease;
   }
 
-  /* Hover effect (optional) */
   .gallery-item img:hover {
     transform: scale(1.05);
   }
 
-  /* Lightbox overlay styling */
+  /***************************************************************
+    Lightbox Overlay
+  ***************************************************************/
   .overlay {
     position: fixed;
     display: none; /* hidden by default */
@@ -86,7 +102,9 @@
     color: #f1c40f;
   }
 
-  /* Info section (likes/comments) */
+  /***************************************************************
+    Likes & Comments
+  ***************************************************************/
   .lightbox-info {
     color: #fff;
     max-width: 300px;
