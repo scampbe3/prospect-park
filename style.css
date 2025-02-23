@@ -66,27 +66,53 @@
   /***************************************************************
     Lightbox Overlay
   ***************************************************************/
-  .overlay {
+  /* Lightbox overlay: full screen, centered content */
+.overlay {
     position: fixed;
-    display: none; /* hidden by default */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
+    display: none; /* hidden by default */
+    justify-content: center; /* center horizontally */
+    align-items: center;     /* center vertically */
     z-index: 999;
   }
 
-  .overlay-content {
-    max-width: 70%;
-    max-height: 70%;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-    margin-bottom: 1rem;
+  /* The container holding the image + the info box side by side */
+  .overlay-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+
+    /* Make sure the user can scroll if the image is larger than their viewport */
+    max-width: 95vw;
+    max-height: 95vh;
+    overflow: auto;
+    /* This ensures both items remain together but still can be scrolled in case they're too large */
   }
 
-  /* Close button */
+  /* The full-resolution image itself */
+  .lightbox-img {
+    display: block;
+    /* No forced max-width here => actual size. If the image is huge, user can scroll. */
+    /* If you prefer to scale it down to fit on screen with no scrolling, do:
+       max-width: 60vw;
+       max-height: 95vh;
+       object-fit: contain;
+       ... But then you won't see true 1:1 resolution on a typical screen. */
+  }
+
+  /* The like/comment area. We keep the background transparent for style. */
+  .lightbox-info {
+    color: #fff;
+    /* Up to you to limit its width or let it expand. Example: */
+    max-width: 300px;
+  }
+
+  /* Close button (positioned top-right) */
   .close {
     position: absolute;
     top: 30px;
@@ -101,6 +127,21 @@
   .close:hover {
     color: #f1c40f;
   }
+
+  /* Mobile responsive: stack the image and comment box vertically if screen is narrow */
+  @media (max-width: 768px) {
+    .overlay-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Optionally scale down the image on mobile if you want:
+       .lightbox-img {
+         max-width: 90vw;
+         max-height: 80vh;
+       }
+    */
+  }
+
 
   /***************************************************************
     Likes & Comments

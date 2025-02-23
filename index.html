@@ -820,22 +820,24 @@
   <!-- Lightbox Overlay -->
   <div id="lightbox-overlay" class="overlay">
     <span id="close-btn" class="close">&times;</span>
+    <div class="overlay-container">
 
-    <!-- Large image display -->
-    <img id="lightbox-image" class="overlay-content" src="" alt="Fullscreen View" />
+        <!-- Large image display -->
+        <img id="lightbox-image" class="lightbox-img" src="" alt="Fullscreen View" />
 
-    <!-- Likes & Comments container -->
-    <div class="lightbox-info">
-      <div class="like-section">
-        <button id="like-btn">Like</button>
-        <span id="like-count">0</span> likes
-      </div>
-      <div class="comments-section">
-        <h3>Comments</h3>
-        <ul id="comment-list"></ul>
-        <textarea id="comment-input" placeholder="Add a comment..."></textarea>
-        <button id="comment-submit-btn">Submit Comment</button>
-      </div>
+        <!-- Likes & Comments container -->
+        <div class="lightbox-info">
+        <div class="like-section">
+            <button id="like-btn">Like</button>
+            <span id="like-count">0</span> likes
+        </div>
+        <div class="comments-section">
+            <h3>Comments</h3>
+            <ul id="comment-list"></ul>
+            <textarea id="comment-input" placeholder="Add a comment..."></textarea>
+            <button id="comment-submit-btn">Submit Comment</button>
+        </div>
+        </div>
     </div>
   </div>
 
