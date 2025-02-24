@@ -67,52 +67,21 @@
     Lightbox Overlay
   ***************************************************************/
   /* Lightbox overlay: full screen, centered content */
+/* The full-screen semi-transparent overlay */
 .overlay {
     position: fixed;
+    display: none; /* hidden by default, shown on click */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.9);
-    display: none; /* hidden by default */
     justify-content: center; /* center horizontally */
     align-items: center;     /* center vertically */
     z-index: 999;
   }
 
-  /* The container holding the image + the info box side by side */
-  .overlay-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 2rem;
-
-    /* Make sure the user can scroll if the image is larger than their viewport */
-    max-width: 95vw;
-    max-height: 95vh;
-    overflow: auto;
-    /* This ensures both items remain together but still can be scrolled in case they're too large */
-  }
-
-  /* The full-resolution image itself */
-  .lightbox-img {
-    display: block;
-    /* No forced max-width here => actual size. If the image is huge, user can scroll. */
-    /* If you prefer to scale it down to fit on screen with no scrolling, do:
-       max-width: 60vw;
-       max-height: 95vh;
-       object-fit: contain;
-       ... But then you won't see true 1:1 resolution on a typical screen. */
-  }
-
-  /* The like/comment area. We keep the background transparent for style. */
-  .lightbox-info {
-    color: #fff;
-    /* Up to you to limit its width or let it expand. Example: */
-    max-width: 300px;
-  }
-
-  /* Close button (positioned top-right) */
+  /* Close (×) button */
   .close {
     position: absolute;
     top: 30px;
@@ -123,36 +92,58 @@
     cursor: pointer;
     transition: color 0.3s;
   }
-
   .close:hover {
     color: #f1c40f;
   }
 
-  /* Mobile responsive: stack the image and comment box vertically if screen is narrow */
+  /* The container for the image + info side by side */
+  .overlay-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    /* We limit total space so it doesn't overflow screen horizontally or vertically */
+    max-width: 90vw;
+    max-height: 90vh;
+    /* We'll let the items inside scale down as needed to fit */
+  }
+
+  /* The large image in the lightbox */
+  .lightbox-img {
+    display: block;
+    /* Scale the image so it never exceeds 90% of the viewport height or 60% of the viewport width */
+    max-width: 60vw;
+    max-height: 90vh;
+    object-fit: contain; /* preserve aspect ratio, no cropping */
+    /* This ensures no horizontal or vertical scrollbars appear. */
+  }
+
+  /* The Like/Comment box */
+  .lightbox-info {
+    color: #fff;
+    /* Let’s give it a max width so it doesn’t push the image too small. */
+    max-width: 28vw;
+    /* If you want some background styling or padding, add here */
+    /* background: rgba(255,255,255,0.1); */
+    /* padding: 1rem; */
+  }
+
+  /* Mobile responsive: stack vertically if the screen is smaller than 768px */
   @media (max-width: 768px) {
     .overlay-container {
       flex-direction: column;
       align-items: center;
     }
-    /* Optionally scale down the image on mobile if you want:
-       .lightbox-img {
-         max-width: 90vw;
-         max-height: 80vh;
-       }
-    */
+    .lightbox-img {
+      max-width: 90vw; /* Image can go nearly full width on mobile */
+      max-height: 60vh;/* so we leave room for the comment box below */
+    }
+    .lightbox-info {
+      max-width: 90vw; /* expand the comment box to full width on mobile */
+      margin-top: 1rem; /* some spacing above it */
+    }
   }
 
-
-  /***************************************************************
-    Likes & Comments
-  ***************************************************************/
-  .lightbox-info {
-    color: #fff;
-    max-width: 300px;
-    width: 90%;
-    margin: 0 auto;
-    text-align: left;
-  }
 
   .like-section {
     display: flex;
