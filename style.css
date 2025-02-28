@@ -19,6 +19,25 @@
     color: #fff;
   }
 
+  /* Navigation menu */
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  padding: 10px;
+}
+
+.nav-btn {
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.nav-btn:hover {
+  background-color: #555;
+}
+
   /***************************************************************
     CSS Grid with "grid-auto-rows" for a "2× vs. 1×" effect
   ***************************************************************/
@@ -79,6 +98,21 @@
     justify-content: center; /* center horizontally */
     align-items: center;     /* center vertically */
     z-index: 999;
+  }
+
+  .nav-btn {
+    background: none;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+
+  .nav-btn:hover {
+    background: rgba(255,255,255,0.2);
   }
 
   /* Close (×) button */
