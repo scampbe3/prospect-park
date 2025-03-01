@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daytrip Photo Gallery</title>
+  <title>DC Daytrip</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
   </nav>
 
   <header class="header">
-    <h1>Daytrip Photo Gallery</h1>
+    <h1>DC Daytrip</h1>
   </header>
 
   <section class="gallery">
@@ -984,29 +984,37 @@
     <!-- Additional images for daytrip page here -->
   </section>
 
-  <!-- Lightbox Overlay -->
-  <div id="lightbox-overlay" class="overlay">
-    <span id="close-btn" class="close">&times;</span>
+ <!-- Lightbox Overlay -->
+<div id="lightbox-overlay" class="overlay">
+  <span id="close-btn" class="close">&times;</span>
 
-    <div class="overlay-container">
-      <button id="prev-btn" class="nav-btn">&larr;</button>
+  <div class="overlay-container">
+    <!-- Left Column: Image + Prev/Next Buttons below it -->
+    <div class="lightbox-left">
       <img id="lightbox-image" class="lightbox-img" src="" alt="Fullscreen View" />
-      <button id="next-btn" class="nav-btn">&rarr;</button>
 
-      <div class="lightbox-info">
-        <div class="like-section">
-          <button id="like-btn">Like</button>
-          <span id="like-count">0</span> likes
-        </div>
-        <div class="comments-section">
-          <h3>Comments</h3>
-          <ul id="comment-list"></ul>
-          <textarea id="comment-input" placeholder="Add a comment..."></textarea>
-          <button id="comment-submit-btn">Submit Comment</button>
-        </div>
+      <div class="nav-btn-container">
+        <button id="prev-btn" class="nav-btn">&larr;</button>
+        <button id="next-btn" class="nav-btn">&rarr;</button>
+      </div>
+    </div>
+
+    <!-- Right Column: Like/Comment Section -->
+    <div class="lightbox-info">
+      <div class="like-section">
+        <button id="like-btn">Like</button>
+        <span id="like-count">0</span> likes
+      </div>
+      <div class="comments-section">
+        <h3>Comments</h3>
+        <ul id="comment-list"></ul>
+        <textarea id="comment-input" placeholder="Add a comment..."></textarea>
+        <button id="comment-submit-btn">Submit Comment</button>
       </div>
     </div>
   </div>
+</div>
+
 
   <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore-compat.js"></script>

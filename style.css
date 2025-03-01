@@ -11,6 +11,12 @@
     color: #333;
   }
 
+
+  /* When we add .no-scroll to <body>, scrolling is disabled behind the lightbox */
+  body.no-scroll {
+    overflow: hidden;
+  }
+
   /* Header */
   .header {
     text-align: center;
@@ -28,14 +34,24 @@
 }
 
 .nav-btn {
+  background: none;
   color: #fff;
-  padding: 10px;
-  text-decoration: none;
-  font-size: 1.2rem;
+  border: 2px solid #fff;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
 }
 
 .nav-btn:hover {
   background-color: #555;
+}
+
+.nav-btn-container {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1.25rem;
 }
 
   /***************************************************************
@@ -97,6 +113,7 @@
     background-color: rgba(0,0,0,0.9);
     justify-content: center; /* center horizontally */
     align-items: center;     /* center vertically */
+    overflow-y: auto;       /* allow vertical scrolling inside the overlay */
     z-index: 999;
   }
 
@@ -159,7 +176,7 @@
     max-width: 28vw;
     /* If you want some background styling or padding, add here */
     /* background: rgba(255,255,255,0.1); */
-    /* padding: 1rem; */
+    padding: 1rem;
   }
 
   /* Mobile responsive: stack vertically if the screen is smaller than 768px */
@@ -167,15 +184,25 @@
     .overlay-container {
       flex-direction: column;
       align-items: center;
+
     }
     .lightbox-img {
       max-width: 90vw; /* Image can go nearly full width on mobile */
       max-height: 60vh;/* so we leave room for the comment box below */
+      object-fit: contain;
+      margin-bottom: 1rem;
     }
     .lightbox-info {
       max-width: 90vw; /* expand the comment box to full width on mobile */
       margin-top: 1rem; /* some spacing above it */
     }
+  }
+
+  .lightbox-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* so the image and buttons are centered horizontally */
   }
 
 

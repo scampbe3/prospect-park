@@ -55,6 +55,7 @@ async function showImageByIndex(index) {
 
   currentIndex = index;
   overlay.style.display = 'flex';
+  document.body.classList.add('no-scroll')
 
   // Load the big JPG from data-full
   const thumb = galleryImages[currentIndex];
@@ -82,6 +83,7 @@ galleryImages.forEach((img, i) => {
  *****************************************************/
 closeBtn.addEventListener('click', () => {
   overlay.style.display = 'none';
+  document.body.classList.remove('no-scroll');
 });
 
 // Close if user clicks outside the lightbox container
@@ -95,6 +97,7 @@ overlay.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (overlay.style.display === 'flex' && e.key === 'Escape') {
     overlay.style.display = 'none';
+    document.body.classList.remove('no-scroll');
   }
 });
 
