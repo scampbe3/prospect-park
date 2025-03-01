@@ -2,12 +2,14 @@
  * 1. INITIALIZE FIREBASE (replace with your config)
  *****************************************************/
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyC7YcVDZyQTn6MVimD9DNzs918fEyRhicI",
+  authDomain: "prospect-gallery.firebaseapp.com",
+  databaseURL: "https://prospect-gallery-default-rtdb.firebaseio.com",
+  projectId: "prospect-gallery",
+  storageBucket: "prospect-gallery.firebasestorage.app",
+  messagingSenderId: "379482558702",
+  appId: "1:379482558702:web:ba805e572f0b89e16323ff",
+  measurementId: "G-LXM7S7LTYC"
 };
 
 // Initialize Firebase
