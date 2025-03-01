@@ -14,6 +14,12 @@
     <a href="daytrip.html" class="nav-btn">Daytrip</a>
   </nav>
 
+  <!-- Navigation Menu -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-btn">Home</a>
+    <a href="daytrip.html" class="nav-btn">Daytrip</a>
+  </nav>
+
   <header class="header">
     <h1>My Photo Gallery</h1>
   </header>
@@ -823,27 +829,34 @@
     <!-- End of all figure blocks -->
   </section>
 
-  <!-- Lightbox Overlay -->
-  <div id="lightbox-overlay" class="overlay">
+   <!-- LIGHTBOX OVERLAY -->
+   <div id="lightbox-overlay" class="overlay">
+    <!-- Close button (X) -->
     <span id="close-btn" class="close">&times;</span>
+
     <div class="overlay-container">
+      <!-- Prev Button -->
+      <button id="prev-btn" class="nav-btn">&larr;</button>
 
-        <!-- Large image display -->
-        <img id="lightbox-image" class="lightbox-img" src="" alt="Fullscreen View" />
+      <!-- The big image placeholder -->
+      <img id="lightbox-image" class="lightbox-img" src="" alt="Fullscreen View" />
 
-        <!-- Likes & Comments container -->
-        <div class="lightbox-info">
+      <!-- Next Button -->
+      <button id="next-btn" class="nav-btn">&rarr;</button>
+
+      <!-- Like/Comment box -->
+      <div class="lightbox-info">
         <div class="like-section">
-            <button id="like-btn">Like</button>
-            <span id="like-count">0</span> likes
+          <button id="like-btn">Like</button>
+          <span id="like-count">0</span> likes
         </div>
         <div class="comments-section">
-            <h3>Comments</h3>
-            <ul id="comment-list"></ul>
-            <textarea id="comment-input" placeholder="Add a comment..."></textarea>
-            <button id="comment-submit-btn">Submit Comment</button>
+          <h3>Comments</h3>
+          <ul id="comment-list"></ul>
+          <textarea id="comment-input" placeholder="Add a comment..."></textarea>
+          <button id="comment-submit-btn">Submit Comment</button>
         </div>
-        </div>
+      </div>
     </div>
   </div>
 
