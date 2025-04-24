@@ -4,8 +4,8 @@ from PIL import Image, ImageOps
 from PIL.Image import Resampling
 
 # 1. Settings
-INPUT_FOLDER = "daytrip"
-OUTPUT_FOLDER = "daytrip_thumbs_webp"
+INPUT_FOLDER = "spring_2025"
+OUTPUT_FOLDER = "spring_2025_thumbs_webp"
 
 # Desired thumbnail sizes for horizontal vs vertical
 HORIZONTAL_SIZE = (800, 400)  # (width, height)

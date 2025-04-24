@@ -2,8 +2,8 @@ import os
 from PIL import Image
 
 # Set up input/output folders
-input_folder = 'images'
-output_folder = 'thumbs_webp'
+input_folder = 'spring_2025'
+output_folder = 'my_new_gallery_thumbs_webp'
 max_size = 500  # Max width/height for thumbnails
 
 # Ensure output folder exists
